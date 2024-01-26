@@ -1,11 +1,8 @@
 import React from 'react'
-import Product from './component/Product'
 
 function App() {
   return (
-    <div>
-      <Product/>
-    </div>
+    <div className=' text-2xl text-red-300'>App</div>
   )
 }
 
