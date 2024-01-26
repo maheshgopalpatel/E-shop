@@ -1,35 +1,30 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { GlobalContext } from '../Context/ProductContext';
 
-function Product() {
-    let [productsList,setProductsList]=useState([]);
-    let [filteredList,setFilteredList]=useState([]);
-    async function getData(){
-        let res= await axios('https://api.kalpav.com/api/v1/product/category/retail')
-        let data=await res.data.response;
-        setProductsList(data)
-        setFilteredList(data)
-    }
-    useEffect(()=>{
-        getData()
-    },[])
-  return (
-    <div>
-        <h1>Product List</h1>
-        <div>
-            {
-                productsList.map(({productCategory:item},i)=>{
-                    console.log(item);
-                    return <div className="max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" key={i}>
-                            <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{item.productCategoryName}</h5>
-                       <img src={item.productCategoryImage} alt="" />
-                    </div>
-                    
-                })
-            }
+const Product = () => {
+    const { productsList, filteredList } = useContext(GlobalContext);
+
+    return (
+        <div className=''>
+            <h1>Product List</h1>
+            <div className=' grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 p-10  gap-2'>
+                {
+                    filteredList.length > 0 ? filteredList.map(({ productCategory: item }, i) => {
+                        const { productCategoryImage, productCategoryName } = item;
+                        return (
+                            <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex items-center flex-col" key={i}>
+                                <img className="p-8 rounded-t-lg" src={productCategoryImage} alt="product image" />
+                                <div className="px-5 pb-5">
+                                    <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{productCategoryName}</h5>
+                                </div>
+                            </div>
+                        )
+                    }) : <h1>Product Unavailable</h1>
+                }
+            </div>
         </div>
-    </div>
-  )
+    )
 }
 
 export default Product
