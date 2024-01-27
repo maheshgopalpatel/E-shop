@@ -4,7 +4,7 @@ import React, { createContext, useEffect, useState } from 'react'
 export const GlobalContext = createContext();
 
 const ProductContext = ({ children }) => {
-    // states for taking array for main data and filter
+    // states for taking array for main data and filter;
     let [productsList, setProductsList] = useState([]);
     let [filteredList, setFilteredList] = useState([]);
 

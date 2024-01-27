@@ -1,10 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 import searchIcon from "../assets/image/search-icon.png"
 import searchButton from "../assets/image/icon.png"
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
+=======
+
+>>>>>>> e7a8c1ee4089510b450818db9dfad2cb9295c238
 const Navbar = () => {
   const navigation = [
     { name: "Home", href: "/", current: false },
