@@ -1,26 +1,36 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
-import searchIcon from "../assets/image/search-icon.png"
-import searchButton from "../assets/image/icon.png"
+import searchIcon from "../assets/image/search-icon.png";
+import searchButton from "../assets/image/icon.png";
+import { GlobalContext } from "../Context/ProductContext";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
-=======
-
->>>>>>> e7a8c1ee4089510b450818db9dfad2cb9295c238
 const Navbar = () => {
+
+const [value, setValue]= useState("")
   const navigation = [
     { name: "Home", href: "/", current: false },
     { name: "Product", href: "/", current: false },
     { name: "About", href: "/", current: false },
   ];
 
+  const searchHandler=(e)=>{
+    setValue(...value, e.target.value)
+  }
+  const {productsList, clickHandler} = useContext(GlobalContext);
+console.log(productsList);
   return (
     <>
       <nav className=" flex justify-evenly items-center">
         <div>
-          <img src={"http://www.hindigraphics.in/wp-content/uploads/2019/01/pro.png"} art="" className=" h-20"/>
+          <img
+            src={
+              "http://www.hindigraphics.in/wp-content/uploads/2019/01/pro.png"
+            }
+            art=""
+            className=" h-20"
+          />
         </div>
         <div className="flex justify-between items-center">
           {navigation.map((item) => {
@@ -43,9 +53,23 @@ const Navbar = () => {
           })}
         </div>
         <div className=" relative ">
-          <input type="text" placeholder="Search Product.." value={""} onChange={(e)=>{searchHandler(e)}} className=" bg-transparent py-2 pl-10 pr-2 border-2 rounded-lg border-orange-400" />
-          <img src={searchIcon} alt="search-icon" className=" absolute h-8 top-2 left-1"/>
-          <button onClick={clickHandler} ><img src={searchButton} alt="search icon"/></button>
+          <input
+            type="text"
+            placeholder="Search Product.."
+            value={""}
+            onChange={(e) => {
+              searchHandler(e);
+            }}
+            className=" bg-transparent py-2 pl-10 pr-2 border-2 rounded-lg border-orange-400 focus:border-orange-400"
+          />
+          <img
+            src={searchIcon}
+            alt="search-icon"
+            className=" absolute h-8 top-3 left-2"
+          />
+          <button onClick={clickHandler}>
+            <img src={searchButton} alt="search icon"  className=" h-8 relative top-3 -right-1" />
+          </button>
         </div>
       </nav>
     </>

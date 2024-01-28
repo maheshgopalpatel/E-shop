@@ -1,16 +1,15 @@
-import axios from 'axios';
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useContext} from 'react'
 import { GlobalContext } from '../Context/ProductContext';
 
 const Product = () => {
-    const { productsList, filteredList } = useContext(GlobalContext);
+    const {productsList } = useContext(GlobalContext);
 
     return (
         <div className=''>
             <h1>Product List</h1>
             <div className=' grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 p-10  gap-2'>
                 {
-                    filteredList.length > 0 ? filteredList.map(({ productCategory: item }, i) => {
+                    productsList.length > 0 ? productsList.map(({ productCategory: item }, i) => {
                         const { productCategoryImage, productCategoryName } = item;
                         return (
                             <div className="w-full max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex items-center flex-col" key={i}>
