@@ -7,19 +7,25 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 const Navbar = () => {
-
-const [value, setValue]= useState("")
+  const [value, setValue] = useState({ text: "" });
   const navigation = [
     { name: "Home", href: "/", current: false },
     { name: "Product", href: "/", current: false },
     { name: "About", href: "/", current: false },
   ];
 
-  const searchHandler=(e)=>{
-    setValue(...value, e.target.value)
-  }
-  const {productsList, clickHandler} = useContext(GlobalContext);
-console.log(productsList);
+  const searchHandler = (e) => {
+    setValue({ ...value.text, text: e.target.value });
+  };
+
+  addEventListener("keydown", (e) => {
+    if (e.keyCode == 13) {
+       
+        clickHandler(value.text);
+      
+    }
+  });
+  const {clickHandler } = useContext(GlobalContext);
   return (
     <>
       <nav className=" flex justify-evenly items-center">
@@ -40,8 +46,8 @@ console.log(productsList);
                   to={item.href}
                   className={classNames(
                     item.current
-                      ? "bg-gray-900 text-white"
-                      : "text-gray-300 hover:bg-gray-700 hover:text-white",
+                      ? "bg-orange-400 text-white"
+                      : "text-orange-500 hover:bg-orange-400 hover:text-white",
                     "rounded-md px-3 py-2 text-lg max-sm:text-base font-medium hover:cursor-pointer"
                   )}
                   aria-current={item.current ? "page" : undefined}
@@ -56,7 +62,7 @@ console.log(productsList);
           <input
             type="text"
             placeholder="Search Product.."
-            value={""}
+            value={value.text}
             onChange={(e) => {
               searchHandler(e);
             }}
@@ -65,10 +71,19 @@ console.log(productsList);
           <img
             src={searchIcon}
             alt="search-icon"
-            className=" absolute h-8 top-3 left-2"
+            className=" absolute h-8 top-2 left-2"
           />
-          <button onClick={clickHandler}>
-            <img src={searchButton} alt="search icon"  className=" h-8 relative top-3 -right-1" />
+          <button
+            onClick={() => {
+              clickHandler(value.text);
+            }}
+            className="absolute top-[.4rem] -right-9"
+          >
+            <img
+              src={searchButton}
+              alt="search icon"
+              className=" h-8 "
+            />
           </button>
         </div>
       </nav>
